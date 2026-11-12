@@ -1,288 +1,851 @@
+```html
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GStore - Jual Smartphone Original & COD Antar Rumah</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Berkah Gadget Store - Pusat Jual Beli HP Baru & Second Berkualitas</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Kustomisasi scrollbar halus */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .bg-hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
         }
-        .card-hover {
-            transition: all 0.3s ease;
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
         }
-        .card-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.3);
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- Modal Notifikasi Alert Modis -->
-    <div id="modalAlert" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full mx-4 text-center shadow-2xl">
-            <div id="alertIcon" class="w-12 h-12 bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center text-xl mx-auto mb-4">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-            <h3 id="alertTitle" class="text-lg font-bold text-white mb-2">Pemberitahuan</h3>
-            <p id="alertMessage" class="text-slate-400 text-sm mb-6"></p>
-            <button onclick="closeAlert()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl transition">
-                Mengerti
-            </button>
-        </div>
-    </div>
-
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <!-- ================= NAVBAR ================= -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-slate-200/80 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <!-- Logo Toko -->
+                <a href="#" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-mobile-screen-button text-xl"></i>
                     </div>
-                    <span class="font-extrabold text-xl tracking-wider text-white">GADGET<span class="text-indigo-500">STORE</span></span>
-                </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight text-slate-900 block leading-none">Berkah<span class="text-blue-600">Gadget</span></span>
+                        <span class="text-[11px] font-medium text-slate-500 tracking-wider uppercase">Store & COD Center</span>
+                    </div>
+                </a>
 
-                <!-- Navigation -->
-                <nav class="hidden md:flex space-x-8 font-medium text-slate-300 text-sm">
-                    <a href="#home" class="hover:text-indigo-400 transition">Beranda</a>
-                    <a href="#katalog" class="hover:text-indigo-400 transition">Katalog HP</a>
-                    <a href="#layanan" class="hover:text-indigo-400 transition">Keunggulan</a>
-                    <a href="#order" class="hover:text-indigo-400 transition">Pesan via WA</a>
-                    <a href="#pembayaran" class="hover:text-indigo-400 transition">Metode Bayar</a>
+                <!-- Navigasi Desktop -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="#katalog" class="hover:text-blue-600 transition-colors">Daftar Harga HP</a>
+                    <a href="#cara-pesan" class="hover:text-blue-600 transition-colors">COD & Ambil di Tempat</a>
+                    <a href="#pembayaran" class="hover:text-blue-600 transition-colors">Metode Pembayaran</a>
+                    <a href="#form-order" class="hover:text-blue-600 transition-colors">Form Pemesanan</a>
                 </nav>
 
-                <!-- WA Quick Link -->
-                <a href="https://wa.me/6281234567890?text=Halo%20GadgetStore,%20saya%20mau%20tanya%20stok%20HP" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition shadow-md shadow-emerald-600/20">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Chat Sales</span>
-                </a>
+                <!-- CTA Header -->
+                <div class="flex items-center gap-3">
+                    <a href="https://wa.me/6285722515525?text=Halo%20Admin%20Berkah%20Gadget,%20saya%20ingin%20tanya%20stok%20HP." target="_blank" rel="noopener noreferrer" 
+                       class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span class="hidden sm:inline">0857-2251-5525</span>
+                        <span class="sm:hidden">Chat WA</span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative overflow-hidden bg-hero-gradient py-16 sm:py-24 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto">
-                <span class="px-3 py-1 bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-full text-xs font-semibold tracking-wider uppercase inline-block mb-4">
-                    100% Original & Garansi Resmi
-                </span>
-                <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight mb-6">
-                    Beli Smartphone Murah & <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Siap COD Antar Rumah!</span>
-                </h1>
-                <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
-                    Pusat penjualan HP Baru & Bekas Berkualitas. Datang langsung ke toko kami atau pesan online dengan layanan COD antar langsung ke rumah kamu.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#katalog" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3.5 rounded-xl font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30">
-                        <i class="fa-solid fa-store"></i> Lihat Katalog & Harga
-                    </a>
-                    <a href="#order" class="bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 px-6 py-3.5 rounded-xl font-semibold transition flex items-center justify-center">
-                        Form Pemesanan
-                    </a>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="pt-28 pb-16 sm:pt-36 sm:pb-24 bg-gradient-to-b from-blue-50/80 via-white to-slate-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Teks Hero -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 text-blue-700 text-xs sm:text-sm font-semibold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                        Bisa COD Antar Sampai Depan Rumah atau Cek di Toko
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6">
+                        Beli Smartphone Impian <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Aman, Cepat & Terpercaya</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Tersedia berbagai pilihan iPhone, Samsung, Xiaomi, OPPO, hingga Vivo kondisi Baru Segel & Second Mulus Bergaransi. Cek unit sepuasnya baru bayar!
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#katalog" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-7 py-4 rounded-2xl shadow-lg shadow-blue-600/20 transition-all hover:-translate-y-0.5">
+                            <i class="fa-solid fa-tags"></i>
+                            Lihat Daftar Harga HP
+                        </a>
+                        <a href="https://wa.me/6285722515525?text=Halo%20Admin,%20saya%20mau%20konsultasi%20beli%20HP." target="_blank" rel="noopener noreferrer" 
+                           class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-semibold px-7 py-4 rounded-2xl shadow-sm transition-all">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 text-xl"></i>
+                            Hubungi Penjual (0857-2251-5525)
+                        </a>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-slate-200/80 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-xl sm:text-2xl font-bold text-slate-900">100%</p>
+                            <p class="text-xs sm:text-sm text-slate-500">Unit Original & IMEI Aman</p>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-bold text-slate-900">COD</p>
+                            <p class="text-xs sm:text-sm text-slate-500">Antar ke Rumah / Toko</p>
+                        </div>
+                        <div>
+                            <p class="text-xl sm:text-2xl font-bold text-slate-900">Fleksibel</p>
+                            <p class="text-xs sm:text-sm text-slate-500">E-Wallet & Transfer Bank</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ilustrasi / Card Promo Hero -->
+                <div class="lg:col-span-5">
+                    <div class="relative bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-100">
+                        <div class="absolute -top-4 -right-4 bg-amber-400 text-slate-900 text-xs font-extrabold px-4 py-2 rounded-full shadow-md transform rotate-3">
+                            READY STOK HARI INI!
+                        </div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg">Layanan COD Ekspres</h3>
+                                <p class="text-sm text-slate-500">Pesan hari ini, kurir kami antar sampai rumah</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-100 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-600"><i class="fa-solid fa-clock text-blue-600 mr-2"></i>Jam Layanan Toko</span>
+                                <span class="font-semibold text-slate-900">09.00 - 21.00 WIB</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-600"><i class="fa-solid fa-motorcycle text-blue-600 mr-2"></i>Jadwal Antar COD</span>
+                                <span class="font-semibold text-slate-900">Fleksibel Sesuai Janji</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-600"><i class="fa-solid fa-wallet text-blue-600 mr-2"></i>Pembayaran</span>
+                                <span class="font-semibold text-slate-900">E-Wallet / Rekening</span>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <a href="#form-order" class="w-full block text-center bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3.5 rounded-xl transition-colors">
+                                Buat Jadwal COD / Kunjungan Sekarang &rarr;
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Keunggulan Layanan -->
-    <section id="layanan" class="py-12 bg-slate-900/50 border-b border-slate-800">
+    <!-- ================= KATALOG & DAFTAR HARGA HP ================= -->
+    <section id="katalog" class="py-16 sm:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex items-start gap-4">
-                    <div class="w-12 h-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-truck-ramp-box"></i>
+            <!-- Section Heading -->
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-blue-600 font-bold text-sm uppercase tracking-wider">Katalog Lengkap</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">Daftar Harga Berdasarkan Tipe HP</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Pilih merek di bawah ini untuk melihat daftar harga terbaru. Klik <strong>"Pesan Sekarang"</strong> pada unit yang Anda inginkan.</p>
+            </div>
+
+            <!-- Filter Merek & Pencarian -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 bg-white p-4 rounded-2xl shadow-sm border border-slate-200/70">
+                <!-- Tombol Kategori Merek -->
+                <div id="brand-filters" class="flex flex-wrap items-center justify-center gap-2 w-full md:w-auto">
+                    <button data-brand="ALL" class="filter-btn active px-4 py-2 rounded-xl text-sm font-semibold bg-blue-600 text-white shadow-sm transition-all">
+                        Semua Tipe
+                    </button>
+                    <button data-brand="iPhone" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                        <i class="fa-brands fa-apple mr-1"></i> iPhone
+                    </button>
+                    <button data-brand="Samsung" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                        Samsung
+                    </button>
+                    <button data-brand="Xiaomi" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                        Xiaomi / POCO
+                    </button>
+                    <button data-brand="OPPO" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                        OPPO
+                    </button>
+                    <button data-brand="Vivo" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                        Vivo
+                    </button>
+                </div>
+
+                <!-- Kolom Pencarian Tipe -->
+                <div class="relative w-full md:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="search-input" placeholder="Cari tipe HP (cth: iPhone 13)..." 
+                           class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                </div>
+            </div>
+
+            <!-- Grid Daftar Produk HP -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Kartu produk akan dirender otomatis melalui JavaScript -->
+            </div>
+
+            <!-- Pesan jika tidak ditemukan -->
+            <div id="empty-state" class="hidden text-center py-12 bg-white rounded-3xl border border-slate-200">
+                <i class="fa-solid fa-mobile-screen text-4xl text-slate-300 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-800">Tipe HP tidak ditemukan</h3>
+                <p class="text-sm text-slate-500 mt-1 mb-4">Coba kata kunci lain atau tanyakan langsung stok tipe yang Anda cari ke admin.</p>
+                <a href="https://wa.me/6285722515525?text=Halo%20Admin,%20apakah%20ada%20stok%20tipe%20HP%20yang%20saya%20cari?" target="_blank" 
+                   class="inline-flex items-center gap-2 bg-emerald-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl">
+                    <i class="fa-brands fa-whatsapp"></i> Tanya Admin via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= METODE PEMESANAN & WAKTU ================= -->
+    <section id="cara-pesan" class="py-16 bg-white border-y border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-blue-600 font-bold text-sm uppercase tracking-wider">Fleksibel & Nyaman</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">Pilihan Bentuk & Waktu Pemesanan</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Kami memberikan 2 opsi transaksi yang paling aman dan mudah sesuai kenyamanan Anda.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Opsi 1: COD Antar Sampai Rumah -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50/50 p-6 sm:p-8 rounded-3xl border border-blue-100 relative overflow-hidden">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fa-solid fa-house-chimney-user"></i>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-1">COD Antar Sampai Rumah</h3>
-                        <p class="text-slate-400 text-sm">Pesan HP dari rumah, kurir kami antar unitnya, cek barang sepuasnya baru bayar.</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-3">1. COD (Diantar Sampai Rumah)</h3>
+                    <p class="text-slate-600 text-sm sm:text-base mb-5 leading-relaxed">
+                        Tidak sempat keluar rumah? Kurir toko kami siap mengantarkan unit HP pilihan Anda langsung ke depan pintu rumah/kantor Anda.
+                    </p>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                            <span><strong>Cek Sepuasnya:</strong> Periksa fisik, fungsi, kamera, dan IMEI sebelum melakukan pembayaran.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                            <span><strong>Waktu Pengantaran:</strong> Bisa diantar langsung hari itu juga (09.00 - 20.30 WIB) atau dijadwalkan sesuai waktu luang Anda.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-blue-600 mt-1"></i>
+                            <span><strong>Aman Tanpa Risiko:</strong> Pembayaran dilakukan saat barang sudah Anda terima dengan baik.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Opsi 2: Datang Langsung ke Tempat -->
+                <div class="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200/80 relative overflow-hidden">
+                    <div class="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-3">2. Ambil & Cek di Tempat (Toko)</h3>
+                    <p class="text-slate-600 text-sm sm:text-base mb-5 leading-relaxed">
+                        Ingin membandingkan beberapa tipe sekaligus? Silakan datang langsung ke lokasi kami dengan membuat janji waktu kedatangan terlebih dahulu.
+                    </p>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i>
+                            <span><strong>Bandingkan Banyak Unit:</strong> Bisa pegang dan coba langsung berbagai pilihan warna & kapasitas memori.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i>
+                            <span><strong>Waktu Operasional:</strong> Buka setiap hari pukul <strong>09.00 - 21.00 WIB</strong> (Booking unit via WA agar stok diamankan).</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i>
+                            <span><strong>Bantuan Pindah Data:</strong> Gratis dibantu pemindahan data dari HP lama ke HP baru di tempat.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= METODE PEMBAYARAN ================= -->
+    <section id="pembayaran" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-blue-600 font-bold text-sm uppercase tracking-wider">Transaksi Praktis</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">Metode Pembayaran</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Mendukung pembayaran non-tunai instan baik saat COD di rumah maupun transaksi di tempat.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <!-- Transfer Rekening Bank -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">Transfer Rekening Bank</h3>
+                            <p class="text-xs text-slate-500">M-Banking / ATM / Internet Banking</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+                            <span class="font-extrabold text-blue-800">BCA</span>
+                            <span class="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded">Tersedia</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+                            <span class="font-extrabold text-blue-600">BRI</span>
+                            <span class="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded">Tersedia</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+                            <span class="font-extrabold text-amber-600">MANDIRI</span>
+                            <span class="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded">Tersedia</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+                            <span class="font-extrabold text-orange-600">BNI</span>
+                            <span class="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded">Tersedia</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex items-start gap-4">
-                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-shop"></i>
+                <!-- E-Wallet & QRIS -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">Dompet Digital (E-Wallet)</h3>
+                            <p class="text-xs text-slate-500">Transfer Saldo atau Scan QRIS</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-1">Beli / Transaksi di Toko</h3>
-                        <p class="text-slate-400 text-sm">Ingin coba langsung? Kunjungi toko fisik/outlet kami untuk lihat ketersediaan unit.</p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex items-start gap-4">
-                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-credit-card"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white text-lg mb-1">Pembayaran Serba Praktis</h3>
-                        <p class="text-slate-400 text-sm">Bayar instan via E-Wallet (DANA, Gopay, OVO, ShopeePay) atau Transfer Bank Resmi.</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-4">
+                        <div class="p-2.5 rounded-xl bg-sky-50 border border-sky-100 text-center font-bold text-sky-700 text-sm">DANA</div>
+                        <div class="p-2.5 rounded-xl bg-purple-50 border border-purple-100 text-center font-bold text-purple-700 text-sm">OVO</div>
+                        <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-100 text-center font-bold text-emerald-700 text-sm">GoPay</div>
+                        <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-100 text-center font-bold text-orange-600 text-sm">ShopeePay</div>
+                        <div class="p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-center font-bold text-slate-800 text-sm col-span-2 sm:col-span-2">QRIS All Payment</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- List Harga & Katalog Tipe HP -->
-    <section id="katalog" class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">Katalog & Daftar Harga HP</h2>
-                <p class="text-slate-400 mt-2">Pilih tipe HP favoritmu dan lakukan pemesanan cepat via WhatsApp!</p>
-            </div>
-
-            <!-- Filter Kategori Kategori -->
-            <div class="flex flex-wrap justify-center gap-2 mb-10">
-                <button onclick="filterHp('all')" class="filter-btn active bg-indigo-600 text-white px-5 py-2 rounded-xl text-sm font-semibold transition">Semua</button>
-                <button onclick="filterHp('entry')" class="filter-btn bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 px-5 py-2 rounded-xl text-sm font-semibold transition">Entry-Level (1-2 Juta)</button>
-                <button onclick="filterHp('mid')" class="filter-btn bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 px-5 py-2 rounded-xl text-sm font-semibold transition">Mid-Range (3-5 Juta)</button>
-                <button onclick="filterHp('flagship')" class="filter-btn bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 px-5 py-2 rounded-xl text-sm font-semibold transition">Flagship (6 Juta+)</button>
-                <button onclick="filterHp('second')" class="filter-btn bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 px-5 py-2 rounded-xl text-sm font-semibold transition">Second Like New</button>
-            </div>
-
-            <!-- Grid Card Produk -->
-            <div id="hpGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- ================= FORM PEMESANAN OTOMATIS KE WHATSAPP ================= -->
+    <section id="form-order" class="py-16 sm:py-24 bg-white border-t border-slate-200/80">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+                <!-- Dekorasi latar -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
                 
-                <!-- Card Item 1 -->
-                <div class="hp-item entry bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
-                    <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Baru / Segel</span>
-                            <i class="fa-solid fa-mobile-screen text-7xl text-slate-500"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Entry-Level</span>
-                        <h3 class="text-lg font-bold text-white mt-1">Redmi Note 13</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">RAM 8GB / 256GB • AMOLED 120Hz • 108MP</p>
+                <div class="relative z-10">
+                    <div class="text-center mb-8">
+                        <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">
+                            Order Cepat via WhatsApp
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold">Formulir Pemesanan HP</h2>
+                        <p class="text-slate-400 text-sm mt-2">Isi detail pesanan di bawah ini, pesan akan otomatis diteruskan ke WhatsApp Admin (<strong class="text-white">0857-2251-5525</strong>).</p>
                     </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 2.399.000</div>
-                        <button onclick="selectHp('Redmi Note 13 (8GB/256GB) - Rp 2.399.000')" class="w-full bg-slate-800 hover:bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
+
+                    <form id="whatsapp-order-form" class="space-y-5">
+                        <!-- Nama Pembeli -->
+                        <div>
+                            <label for="buyer-name" class="block text-sm font-medium text-slate-300 mb-1.5">Nama Lengkap Anda *</label>
+                            <input type="text" id="buyer-name" required placeholder="Masukkan nama Anda..." 
+                                   class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                        </div>
+
+                        <!-- Pilihan Tipe HP -->
+                        <div>
+                            <label for="phone-select" class="block text-sm font-medium text-slate-300 mb-1.5">Pilih Tipe HP & Harga *</label>
+                            <select id="phone-select" required 
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                <option value="">-- Pilih Tipe HP dari Daftar --</option>
+                                <!-- Opsi diisi otomatis oleh JavaScript -->
+                            </select>
+                        </div>
+
+                        <!-- Bentuk Pemesanan & Waktu -->
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="delivery-method" class="block text-sm font-medium text-slate-300 mb-1.5">Bentuk Pemesanan *</label>
+                                <select id="delivery-method" required 
+                                        class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                    <option value="COD (Diantar Sampai Rumah)">COD (Diantar Sampai Rumah)</option>
+                                    <option value="Datang Langsung ke Tempat (Toko)">Datang Langsung ke Tempat (Toko)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="order-time" class="block text-sm font-medium text-slate-300 mb-1.5">Waktu Pengantaran / Kunjungan *</label>
+                                <input type="text" id="order-time" required placeholder="Contoh: Hari ini jam 16.00 WIB" 
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Metode Pembayaran -->
+                        <div>
+                            <label for="payment-method" class="block text-sm font-medium text-slate-300 mb-1.5">Metode Pembayaran *</label>
+                            <select id="payment-method" required 
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                                <optgroup label="E-Wallet">
+                                    <option value="E-Wallet - DANA">E-Wallet (DANA)</option>
+                                    <option value="E-Wallet - OVO">E-Wallet (OVO)</option>
+                                    <option value="E-Wallet - GoPay">E-Wallet (GoPay)</option>
+                                    <option value="E-Wallet - ShopeePay">E-Wallet (ShopeePay)</option>
+                                    <option value="Scan QRIS">Scan QRIS</option>
+                                </optgroup>
+                                <optgroup label="Transfer Rekening Bank">
+                                    <option value="Transfer Rekening BCA">Transfer Rekening BCA</option>
+                                    <option value="Transfer Rekening BRI">Transfer Rekening BRI</option>
+                                    <option value="Transfer Rekening Mandiri">Transfer Rekening Mandiri</option>
+                                    <option value="Transfer Rekening BNI">Transfer Rekening BNI</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <!-- Alamat Lengkap (Dinamis muncul wajib jika COD) -->
+                        <div id="address-container">
+                            <label for="buyer-address" class="block text-sm font-medium text-slate-300 mb-1.5">
+                                Alamat Lengkap Pengantaran COD <span id="address-required-badge" class="text-amber-400">*</span>
+                            </label>
+                            <textarea id="buyer-address" rows="3" required placeholder="Tulis nama jalan, nomor rumah, RT/RW, patokan rumah..." 
+                                      class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"></textarea>
+                        </div>
+
+                        <!-- Tombol Kirim WA -->
+                        <button type="submit" 
+                                class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-3 text-base transition-all hover:-translate-y-0.5 cursor-pointer">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            Kirim Pesanan ke WhatsApp (0857-2251-5525)
                         </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 pb-8 border-b border-slate-800">
+                <div>
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <span class="font-extrabold text-xl text-white">Berkah<span class="text-blue-500">Gadget</span></span>
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        Pusat jual beli smartphone baru & second berkualitas. Melayani pembelian langsung di tempat maupun COD antar sampai depan rumah Anda.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Layanan Pelanggan</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><i class="fa-brands fa-whatsapp text-emerald-500 mr-2"></i> WhatsApp: <a href="https://wa.me/6285722515525" target="_blank" class="text-white hover:underline font-semibold">0857-2251-5525</a></li>
+                        <li><i class="fa-solid fa-clock text-blue-500 mr-2"></i> Buka Setiap Hari: 09.00 - 21.00 WIB</li>
+                        <li><i class="fa-solid fa-truck text-blue-500 mr-2"></i> Pengantaran COD: Setiap Hari Sesuai Jadwal</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Pembayaran Diterima</h4>
+                    <p class="text-sm mb-3">Mendukung pembayaran aman saat unit diterima:</p>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold text-slate-300">
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">BCA</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">BRI</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">Mandiri</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">BNI</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">DANA</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">OVO</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">GoPay</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg">QRIS</span>
                     </div>
                 </div>
+            </div>
+            <div class="pt-6 text-center text-xs text-slate-500">
+                &copy; 2026 Berkah Gadget Store. Semua Hak Dilindungi.
+            </div>
+        </div>
+    </footer>
 
-                <!-- Card Item 2 -->
-                <div class="hp-item mid bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
+    <!-- ================= FLOATING WHATSAPP BUTTON ================= -->
+    <a href="https://wa.me/6285722515525?text=Halo%20Admin%20Berkah%20Gadget,%20saya%20ingin%20order%20HP." 
+       target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp"
+       class="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3.5 rounded-full shadow-2xl shadow-emerald-900/40 transition-transform hover:scale-105 group">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="font-bold text-sm pr-1">Order WA: 0857-2251-5525</span>
+    </a>
+
+    <!-- ================= SCRIPT APLIKASI ================= -->
+    <script>
+        // Nomor WhatsApp Penjual (Format Internasional 62)
+        const SELLER_WA = "6285722515525";
+
+        // Data Katalog HP Lengkap
+        const phoneCatalog = [
+            {
+                id: "ip-15-pm",
+                brand: "iPhone",
+                name: "iPhone 15 Pro Max 256GB",
+                condition: "Baru Segel (iBox)",
+                conditionType: "new",
+                specs: "Chip A17 Pro • Titanium • Kamera 48MP",
+                price: 21499000,
+                color: "Natural Titanium",
+                iconColor: "from-slate-700 to-slate-900"
+            },
+            {
+                id: "ip-13-128",
+                brand: "iPhone",
+                name: "iPhone 13 128GB",
+                condition: "Second Mulus 98%",
+                conditionType: "second",
+                specs: "Chip A15 Bionic • BH 92% • Fullset Ori",
+                price: 8250000,
+                color: "Midnight / Starlight",
+                iconColor: "from-indigo-600 to-slate-900"
+            },
+            {
+                id: "ip-11-128",
+                brand: "iPhone",
+                name: "iPhone 11 128GB",
+                condition: "Second Mulus 97%",
+                conditionType: "second",
+                specs: "Face ID On • True Tone On • BH 90%+",
+                price: 5150000,
+                color: "Black / White",
+                iconColor: "from-slate-600 to-slate-800"
+            },
+            {
+                id: "sam-s24u",
+                brand: "Samsung",
+                name: "Samsung Galaxy S24 Ultra 12/256GB",
+                condition: "Baru Segel (SEIN)",
+                conditionType: "new",
+                specs: "Snapdragon 8 Gen 3 • S-Pen • Galaxy AI",
+                price: 18999000,
+                color: "Titanium Gray",
+                iconColor: "from-blue-700 to-slate-900"
+            },
+            {
+                id: "sam-a55",
+                brand: "Samsung",
+                name: "Samsung Galaxy A55 5G 8/256GB",
+                condition: "Baru Segel (SEIN)",
+                conditionType: "new",
+                specs: "Exynos 1480 • Super AMOLED 120Hz • IP67",
+                price: 5699000,
+                color: "Awesome Iceblue",
+                iconColor: "from-sky-500 to-blue-700"
+            },
+            {
+                id: "sam-a15",
+                brand: "Samsung",
+                name: "Samsung Galaxy A15 8/256GB",
+                condition: "Second Mulus 99%",
+                conditionType: "second",
+                specs: "Helio G99 • Layar Super AMOLED • Garansi Aktif",
+                price: 2350000,
+                color: "Blue Black",
+                iconColor: "from-blue-600 to-indigo-800"
+            },
+            {
+                id: "xio-rn13p",
+                brand: "Xiaomi",
+                name: "Redmi Note 13 Pro 5G 8/256GB",
+                condition: "Baru Segel Resmi",
+                conditionType: "new",
+                specs: "Kamera 200MP OIS • Snapdragon 7s Gen 2 • 67W",
+                price: 4299000,
+                color: "Midnight Black",
+                iconColor: "from-orange-500 to-red-600"
+            },
+            {
+                id: "xio-poco-x6p",
+                brand: "Xiaomi",
+                name: "POCO X6 Pro 5G 12/512GB",
+                condition: "Second Mulus 98%",
+                conditionType: "second",
+                specs: "Dimensity 8300-Ultra • Gaming Rata Kanan",
+                price: 4150000,
+                color: "Yellow / Black",
+                iconColor: "from-amber-500 to-orange-600"
+            },
+            {
+                id: "oppo-reno11",
+                brand: "OPPO",
+                name: "OPPO Reno11 5G 8/256GB",
+                condition: "Baru Segel Resmi",
+                conditionType: "new",
+                specs: "Kamera Portrait Telephoto • 67W SUPERVOOC",
+                price: 5299000,
+                color: "Wave Green",
+                iconColor: "from-emerald-500 to-teal-700"
+            },
+            {
+                id: "oppo-a60",
+                brand: "OPPO",
+                name: "OPPO A60 8/128GB",
+                condition: "Baru Segel Resmi",
+                conditionType: "new",
+                specs: "Tahan Banting Standar Militer • 45W Fast Charge",
+                price: 2499000,
+                color: "Ripple Blue",
+                iconColor: "from-teal-500 to-emerald-700"
+            },
+            {
+                id: "vivo-v30",
+                brand: "Vivo",
+                name: "Vivo V30 5G 8/256GB",
+                condition: "Second Mulus 99%",
+                conditionType: "second",
+                specs: "Aura Light Portrait • Bodi Tipis 7.45mm • 80W",
+                price: 4650000,
+                color: "Equatorial Green",
+                iconColor: "from-cyan-600 to-blue-700"
+            },
+            {
+                id: "vivo-y28",
+                brand: "Vivo",
+                name: "Vivo Y28 8/256GB",
+                condition: "Baru Segel Resmi",
+                conditionType: "new",
+                specs: "Baterai Jumbo 6000mAh • 44W FlashCharge",
+                price: 2499000,
+                color: "Agate Green",
+                iconColor: "from-blue-500 to-cyan-600"
+            }
+        ];
+
+        // Format angka ke Rupiah
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        }
+
+        // Render Kartu Produk ke Grid
+        const productGrid = document.getElementById('product-grid');
+        const emptyState = document.getElementById('empty-state');
+        const phoneSelect = document.getElementById('phone-select');
+
+        function renderProducts(filterBrand = 'ALL', searchQuery = '') {
+            productGrid.innerHTML = '';
+            const query = searchQuery.toLowerCase().trim();
+
+            const filtered = phoneCatalog.filter(item => {
+                const matchBrand = filterBrand === 'ALL' || item.brand.toLowerCase() === filterBrand.toLowerCase();
+                const matchQuery = item.name.toLowerCase().includes(query) || item.specs.toLowerCase().includes(query);
+                return matchBrand && matchQuery;
+            });
+
+            if (filtered.length === 0) {
+                productGrid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            productGrid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            filtered.forEach(phone => {
+                const badgeClass = phone.conditionType === 'new' 
+                    ? 'bg-emerald-100 text-emerald-700 border-emerald-200' 
+                    : 'bg-amber-100 text-amber-800 border-amber-200';
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group';
+                
+                card.innerHTML = `
                     <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Best Seller</span>
-                            <i class="fa-solid fa-mobile-screen text-7xl text-indigo-400"></i>
+                        <!-- Header Visual Produk -->
+                        <div class="h-40 bg-gradient-to-br ${phone.iconColor} p-5 relative flex flex-col justify-between text-white">
+                            <div class="flex justify-between items-start">
+                                <span class="px-2.5 py-1 rounded-lg bg-white/20 backdrop-blur-md text-xs font-bold tracking-wide">
+                                    ${phone.brand}
+                                </span>
+                                <span class="px-2.5 py-1 rounded-lg border text-[11px] font-bold ${badgeClass}">
+                                    ${phone.condition}
+                                </span>
+                            </div>
+                            <div class="flex items-end justify-between">
+                                <div>
+                                    <p class="text-xs text-white/80">Warna Tersedia</p>
+                                    <p class="text-xs font-semibold">${phone.color}</p>
+                                </div>
+                                <i class="fa-solid fa-mobile-screen-button text-5xl text-white/25 group-hover:scale-110 transition-transform"></i>
+                            </div>
                         </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Mid-Range</span>
-                        <h3 class="text-lg font-bold text-white mt-1">Samsung Galaxy A35 5G</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">RAM 8GB / 256GB • IP67 Anti Air • OIS Camera</p>
+
+                        <!-- Detail Spesifikasi -->
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-lg leading-snug mb-2 group-hover:text-blue-600 transition-colors">
+                                ${phone.name}
+                            </h3>
+                            <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                                <i class="fa-solid fa-microchip text-slate-400 mr-1"></i> ${phone.specs}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 4.799.000</div>
-                        <button onclick="selectHp('Samsung Galaxy A35 5G (8GB/256GB) - Rp 4.799.000')" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
+
+                    <!-- Harga & Tombol Pesan -->
+                    <div class="px-5 pb-5 pt-3 border-t border-slate-100">
+                        <div class="mb-3">
+                            <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block">Harga Spesial</span>
+                            <span class="text-xl font-extrabold text-blue-600">${formatRupiah(phone.price)}</span>
+                        </div>
+                        <button onclick="selectPhoneForOrder('${phone.id}')" 
+                                class="w-full bg-slate-900 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Pesan Sekarang
                         </button>
                     </div>
-                </div>
+                `;
+                productGrid.appendChild(card);
+            });
+        }
 
-                <!-- Card Item 3 -->
-                <div class="hp-item flagship bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
-                    <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Flagship</span>
-                            <i class="fa-solid fa-mobile-button text-7xl text-cyan-400"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Flagship</span>
-                        <h3 class="text-lg font-bold text-white mt-1">iPhone 15 Pro</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">128GB • Titanium Chassis • A17 Pro Chip</p>
-                    </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 18.499.000</div>
-                        <button onclick="selectHp('iPhone 15 Pro 128GB - Rp 18.499.000')" class="w-full bg-slate-800 hover:bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
-                        </button>
-                    </div>
-                </div>
+        // Isi Dropdown Pilihan HP pada Form Order
+        function populatePhoneDropdown() {
+            phoneCatalog.forEach(phone => {
+                const option = document.createElement('option');
+                option.value = `${phone.name} (${phone.condition}) - ${formatRupiah(phone.price)}`;
+                option.dataset.id = phone.id;
+                option.textContent = `${phone.brand} | ${phone.name} - ${formatRupiah(phone.price)}`;
+                phoneSelect.appendChild(option);
+            });
+        }
 
-                <!-- Card Item 4 -->
-                <div class="hp-item second bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
-                    <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Second Fullset</span>
-                            <i class="fa-solid fa-mobile-screen-button text-7xl text-amber-400"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Second Like New</span>
-                        <h3 class="text-lg font-bold text-white mt-1">iPhone 12 128GB (Bekas)</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">BH 88%+ • Mulus 97% • Original Ex Resmi</p>
-                    </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 6.850.000</div>
-                        <button onclick="selectHp('iPhone 12 128GB Bekas - Rp 6.850.000')" class="w-full bg-slate-800 hover:bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
-                        </button>
-                    </div>
-                </div>
+        // Fungsi saat tombol "Pesan Sekarang" di kartu HP diklik
+        function selectPhoneForOrder(phoneId) {
+            const targetPhone = phoneCatalog.find(p => p.id === phoneId);
+            if (targetPhone) {
+                const optionValue = `${targetPhone.name} (${targetPhone.condition}) - ${formatRupiah(targetPhone.price)}`;
+                phoneSelect.value = optionValue;
+            }
+            // Gulir halus ke formulir pemesanan
+            const formSection = document.getElementById('form-order');
+            formSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Fokus ke input nama
+            setTimeout(() => {
+                document.getElementById('buyer-name').focus();
+            }, 600);
+        }
 
-                <!-- Card Item 5 -->
-                <div class="hp-item mid bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
-                    <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Baru / Segel</span>
-                            <i class="fa-solid fa-mobile-screen text-7xl text-slate-400"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Mid-Range</span>
-                        <h3 class="text-lg font-bold text-white mt-1">Infinix GT 20 Pro</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">RAM 12GB / 256GB • Dimensity 8200 Ultimate</p>
-                    </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 4.299.000</div>
-                        <button onclick="selectHp('Infinix GT 20 Pro (12GB/256GB) - Rp 4.299.000')" class="w-full bg-slate-800 hover:bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
-                        </button>
-                    </div>
-                </div>
+        // Event Filter Merek
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        let currentBrand = 'ALL';
 
-                <!-- Card Item 6 -->
-                <div class="hp-item flagship bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
-                    <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Flagship</span>
-                            <i class="fa-solid fa-mobile-screen text-7xl text-purple-400"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Flagship</span>
-                        <h3 class="text-lg font-bold text-white mt-1">Samsung Galaxy S24 Ultra</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">12GB / 512GB • Galaxy AI • 200MP Camera</p>
-                    </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 20.999.000</div>
-                        <button onclick="selectHp('Samsung Galaxy S24 Ultra - Rp 20.999.000')" class="w-full bg-slate-800 hover:bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
-                        </button>
-                    </div>
-                </div>
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-slate-100', 'text-slate-700');
+                });
+                btn.classList.remove('bg-slate-100', 'text-slate-700');
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
 
-                <!-- Card Item 7 -->
-                <div class="hp-item entry bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between card-hover">
-                    <div>
-                        <div class="bg-slate-800/80 rounded-2xl h-48 flex items-center justify-center p-4 mb-4 relative overflow-hidden">
-                            <span class="absolute top-3 left-3 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-2.5 py-1 rounded-full font-bold">Baru / Segel</span>
-                            <i class="fa-solid fa-mobile-screen text-7xl text-slate-400"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Entry-Level</span>
-                        <h3 class="text-lg font-bold text-white mt-1">Realme C67</h3>
-                        <p class="text-xs text-slate-400 mt-1 mb-4">RAM 8GB / 128GB • Snapdragon 685 • 108MP</p>
-                    </div>
-                    <div>
-                        <div class="text-xl font-extrabold text-white mb-4">Rp 2.199.000</div>
-                        <button onclick="selectHp('Realme C67 (8GB/128GB) - Rp 2.199.000')" class="w-full bg-slate-800 hover:bg-indigo-600 text-white text-sm font-semibold py-2.5 rounded-xl transition">
-                            Pilih Tipe Ini
-                        </button>
-                    </div>
-                </d
+                currentBrand = btn.dataset.brand;
+                renderProducts(currentBrand, document.getElementById('search-input').value);
+            });
+        });
+
+        // Event Pencarian
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            renderProducts(currentBrand, e.target.value);
+        });
+
+        // Toggle Kewajiban Alamat Berdasarkan Pilihan COD atau Ambil di Tempat
+        const deliveryMethodSelect = document.getElementById('delivery-method');
+        const addressInput = document.getElementById('buyer-address');
+        const addressBadge = document.getElementById('address-required-badge');
+
+        deliveryMethodSelect.addEventListener('change', (e) => {
+            if (e.target.value.includes('COD')) {
+                addressInput.required = true;
+                addressInput.placeholder = "Tulis nama jalan, nomor rumah, RT/RW, patokan rumah...";
+                addressBadge.textContent = "* (Wajib untuk COD)";
+            } else {
+                addressInput.required = false;
+                addressInput.placeholder = "Opsional (Anda memilih datang langsung ke tempat/toko)";
+                addressBadge.textContent = "(Opsional)";
+            }
+        });
+
+        // Proses Kirim Form Pemesanan ke WhatsApp
+        document.getElementById('whatsapp-order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('buyer-name').value.trim();
+            const phone = document.getElementById('phone-select').value;
+            const delivery = document.getElementById('delivery-method').value;
+            const time = document.getElementById('order-time').value.trim();
+            const payment = document.getElementById('payment-method').value;
+            const address = document.getElementById('buyer-address').value.trim() || "Datang langsung ke toko";
+
+            const message = 
+`Halo Admin *Berkah Gadget Store*, saya ingin memesan HP dengan detail berikut:
+
+*Nama Pembeli:* ${name}
+*Tipe HP:* ${phone}
+*Bentuk Pemesanan:* ${delivery}
+*Waktu Pengantaran/Kunjungan:* ${time}
+*Metode Pembayaran:* ${payment}
+*Alamat Lengkap:* ${address}
+
+Mohon konfirmasi ketersediaan unitnya. Terima kasih!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${SELLER_WA}?text=${encodedMessage}`;
+
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        });
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            populatePhoneDropdown();
+        });
+    </script>
+</body>
+</html>
+```
